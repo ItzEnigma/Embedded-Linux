@@ -3,9 +3,9 @@
 #include <stdint.h>
 
 #define FOUND       1
-#define NOT_FOUND   0
+#define NOT_FOUND   -1
 
-uint8_t binary_search(uint16_t arr[], uint16_t size, uint16_t element);
+int8_t binary_search(uint16_t arr[], uint16_t size, uint16_t element);
 
 uint16_t cmp( const void* a, const void* b)
 {
@@ -23,20 +23,20 @@ void main()
     printf("\nElement to search for >> ");
     scanf("%hu", &input);
     qsort(myArr, size, sizeof(uint16_t), cmp);
-    uint8_t response = binary_search(myArr, size, input);
-    if( response == FOUND )
+    int8_t response = binary_search(myArr, size, input);
+    if( response != NOT_FOUND )
     {
-        printf("Found!\n");
+        printf("Element [%hu] was found at index --> %u \n", input, response);
     }
     else
     {
-        printf("Not Found!\n");
+        printf("Couldn't find %u !!! \n", input);
     }
 }
 
-uint8_t binary_search(uint16_t arr[], uint16_t size, uint16_t element)
+int8_t binary_search(uint16_t arr[], uint16_t size, uint16_t element)
 {
-    uint8_t ret = NOT_FOUND;
+    int8_t ret = NOT_FOUND;
 
     uint16_t start = 0;
     uint16_t end = size-1;
@@ -59,5 +59,5 @@ uint8_t binary_search(uint16_t arr[], uint16_t size, uint16_t element)
         }
     }
 
-    return ret;
+    return ret == FOUND ? mid : ret;
 }
