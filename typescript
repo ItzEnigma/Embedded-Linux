@@ -1,0 +1,159 @@
+Script started on 2024-03-02 13:14:39+02:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="121" LINES="24"]
+*************************** ENIGMA@HACKER#GET_HACKED *************************** 
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ cler
+[?2004lCommand 'cler' not found, did you mean:
+  command 'cleo' from deb cleo (0.004-3)
+  command 'clear' from deb ncurses-bin (6.3-2ubuntu0.1)
+  command 'cver' from deb gplcver (2.12a-1.1build1)
+  command 'clex' from deb clex (4.6.patch8-1)
+Try: sudo apt install <deb name>
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ cler[Kar
+[?2004l[H[2J[3J[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ ls
+[?2004l[0m[01;34mAssignments[0m  [01;34mCPP-workspace[0m  README.md  typescript
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ cd Assignments/UserGroup_Task4/
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ ls
+[?2004l[0m[01;32masg4_script.bash[0m  README.md
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ asg4[K[K[K[Kcat asg4_script.bash 
+[?2004l#!/bin/bash/
+
+echo "Running Script ..."
+
+#echo "Enter the new user name"
+read -p "Enter the new user name: " usrName
+
+if [ $( grep -q $usrName /etc/passwd) ]
+then
+    echo "User Already Exists!"
+    exit
+else
+    read -p "Enter the new group name: " grpName
+    if grep -q "$grpName" /etc/group
+    then
+        echo "Group Already Exists"
+    else
+	sudo groupadd $grpName
+    fi
+      # -m --> Create new Home directory for the new user and copy the contents of /etc/skel/* (.bashrc & .profile ..)
+      # -d --> Change the home directory to a custom directory ... (This is done because home directory is chosen
+	# incorrectly causing issue for the .bashrc ...etc.)
+ 	 sudo useradd -m -d /home/$usrName $usrName
+        echo "Enter User Password:"
+        sudo passwd $usrName
+        sudo usermod -aG "$grpName" "$usrName"
+        echo "User: $usrName is sucessfully added to Group: $grpName"
+
+        echo "User Information"
+        id $usrName
+
+        echo "Group Information"
+        getent group $grpName
+fi
+
+#echo $usrName
+
+
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ ^C[?2004l[?2004h[?2004l
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ ^C^C[?2004l[?2004h[?2004l
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ nano asg4_script.bash 
+[?2004l[?2004h[?1049h[22;0;0t[1;24r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[22;54H(B[0;7m[ Reading... ](B[m[22;53H(B[0;7m[ Read 38 lines ](B[m[H(B[0;7m  GNU nano 6.2                                         asg4_script.bash                                                  [1;120H(B[m[23d(B[0;7m^G(B[m Help[23;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[23;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo[106G(B[0;7mM-A(B[m Set Mark[24d(B[0;7m^X(B[m Exit[24;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo[106G(B[0;7mM-6(B[m Copy[2d[36m#!/bin/bash/[4d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Running Script ..."[6d(B[0m[36m#echo (B[0;1m[33m"Enter the new user name"[7d(B[0m[32mread(B[0;1m[35m -p[39m(B[m (B[0;1m[33m"Enter the new user name: "[39m(B[m usrName[9d[32mif[39m(B[m [32m[[39m(B[m [32m$([39m(B[m (B[0;1m[34mgrep[35m -q[39m(B[m (B[0;1m[31m$usrName[39m(B[m /etc/passwd[32m)[39m(B[m [32m][10dthen[11d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"User Already Exists!"[12;5H(B[0m[32mexit[13delse[14dread(B[0;1m[35m -p[39m(B[m (B[0;1m[33m"Enter the new group name: "[39m(B[m grpName[15;5H[32mif[39m(B[m (B[0;1m[34mgrep[35m -q[39m(B[m (B[0;1m[33m"$grpName"[39m(B[m /etc/group[16;5H[32mthen[17d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Group Already Exists"[18;5H(B[0m[32melse[19d[39m(B[msudo groupadd (B[0;1m[31m$grpName[20;5H(B[0m[32mfi[21d[36m # -m --> Create new Home directory for the new user and copy the contents of /etc/skel/* (.bashrc & .profile ..)[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[2;13H[?25l[1;73H(B[0;7m*[120G(B[m[?12l[?25h[2;12H [?25l[22;53H (B[0;7m[ Writing... ](B[m[K[1;73H(B[0;7m [120G(B[m[22;52H(B[0;7m[ Wrote 38 lines ](B[m[?12l[?25h[2;12H[?25l[22d[J[24d[?12l[?25h[24;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ nano asg4_script.bash ^C[?2004l[?2004h[?2004l
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ asg4_scrit[Kpt.bash
+[?2004lasg4_script.bash: command not found
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ asg4_script.bashnano asg4_script.bash [6Pasg4_script.bashnano asg4_script.bash 
+[?2004l[?2004h[?1049h[22;0;0t[1;24r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[22;54H(B[0;7m[ Reading... ](B[m[22;53H(B[0;7m[ Read 38 lines ](B[m[H(B[0;7m  GNU nano 6.2                                         asg4_script.bash                                                  [1;120H(B[m[23d(B[0;7m^G(B[m Help[23;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[23;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo[106G(B[0;7mM-A(B[m Set Mark[24d(B[0;7m^X(B[m Exit[24;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo[106G(B[0;7mM-6(B[m Copy[2d[36m#!/bin/bash[4d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Running Script ..."[6d(B[0m[36m#echo (B[0;1m[33m"Enter the new user name"[7d(B[0m[32mread(B[0;1m[35m -p[39m(B[m (B[0;1m[33m"Enter the new user name: "[39m(B[m usrName[9d[32mif[39m(B[m [32m[[39m(B[m [32m$([39m(B[m (B[0;1m[34mgrep[35m -q[39m(B[m (B[0;1m[31m$usrName[39m(B[m /etc/passwd[32m)[39m(B[m [32m][10dthen[11d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"User Already Exists!"[12;5H(B[0m[32mexit[13delse[14dread(B[0;1m[35m -p[39m(B[m (B[0;1m[33m"Enter the new group name: "[39m(B[m grpName[15;5H[32mif[39m(B[m (B[0;1m[34mgrep[35m -q[39m(B[m (B[0;1m[33m"$grpName"[39m(B[m /etc/group[16;5H[32mthen[17d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Group Already Exists"[18;5H(B[0m[32melse[19d[39m(B[msudo groupadd (B[0;1m[31m$grpName[20;5H(B[0m[32mfi[21d[36m # -m --> Create new Home directory for the new user and copy the contents of /etc/skel/* (.bashrc & .profile ..)[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[2;12H[?25l[1;73H(B[0;7m*[120G(B[m[?12l[?25h[2;12H[36m/[39m(B[m[?25l[22;53H (B[0;7m[ Writing... ](B[m[K[1;73H(B[0;7m [120G(B[m[22;52H(B[0;7m[ Wrote 38 lines ](B[m[?12l[?25h[2;13H[?25l[22d[J[24d[?12l[?25h[24;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ nano asg4_script.bash [6Pasg4_script.bash
+[?2004lasg4_script.bash: command not found
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ 
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ ./asg4_script.bash 
+[?2004lbash: ./asg4_script.bash: /bin/bash/: bad interpreter: Not a directory
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ ./asg4_script.bash [3Pasg4_script.bash
+[?2004lasg4_script.bash: command not found
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ asg4_script.bash./asg4_script.bash [3Pasg4_script.bashnano asg4_script.bash 
+[?2004l[?2004h[?1049h[22;0;0t[1;24r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[22;54H(B[0;7m[ Reading... ](B[m[22;53H(B[0;7m[ Read 38 lines ](B[m[H(B[0;7m  GNU nano 6.2                                         asg4_script.bash                                                  [1;120H(B[m[23d(B[0;7m^G(B[m Help[23;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[23;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo[106G(B[0;7mM-A(B[m Set Mark[24d(B[0;7m^X(B[m Exit[24;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo[106G(B[0;7mM-6(B[m Copy[2d[36m#!/bin/bash/[4d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Running Script ..."[6d(B[0m[36m#echo (B[0;1m[33m"Enter the new user name"[7d(B[0m[32mread(B[0;1m[35m -p[39m(B[m (B[0;1m[33m"Enter the new user name: "[39m(B[m usrName[9d[32mif[39m(B[m [32m[[39m(B[m [32m$([39m(B[m (B[0;1m[34mgrep[35m -q[39m(B[m (B[0;1m[31m$usrName[39m(B[m /etc/passwd[32m)[39m(B[m [32m][10dthen[11d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"User Already Exists!"[12;5H(B[0m[32mexit[13delse[14dread(B[0;1m[35m -p[39m(B[m (B[0;1m[33m"Enter the new group name: "[39m(B[m grpName[15;5H[32mif[39m(B[m (B[0;1m[34mgrep[35m -q[39m(B[m (B[0;1m[33m"$grpName"[39m(B[m /etc/group[16;5H[32mthen[17d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Group Already Exists"[18;5H(B[0m[32melse[19d[39m(B[msudo groupadd (B[0;1m[31m$grpName[20;5H(B[0m[32mfi[21d[36m # -m --> Create new Home directory for the new user and copy the contents of /etc/skel/* (.bashrc & .profile ..)[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[2;13H[?25l[1;73H(B[0;7m*[120G(B[m[?12l[?25h[2;12H [?25l[22;53H (B[0;7m[ Writing... ](B[m[K[1;73H(B[0;7m [120G(B[m[22;52H(B[0;7m[ Wrote 38 lines ](B[m[?12l[?25h[2;12H[?25l[22d[J[24d[?12l[?25h[24;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ nano asg4_script.bash [6Pasg4_script.bash./asg4_script.bash 
+[?2004lRunning Script ...
+Enter the new user name: ^X^C
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ ./asg4_script.bash [3@nano [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd..[K[K ../ [Ka[K
+AdminLinux_Task1/   BashrcScript_Task3/ BinarySearch_Task2/ UserGroup_Task4/    
+]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/UserGroup_Task4[00m$ cd ../AdminLinux_Task1/
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/AdminLinux_Task1[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/AdminLinux_Task1[00m$ s[Kls
+[?2004l[0m[01;32masg1_script.sh[0m  [01;34mdir1[0m  [01;34mdocs[0m  [01;34mDocuments[0m
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/AdminLinux_Task1[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/AdminLinux_Task1[00m$ a[Knano asg1_script.sh 1[K
+[?2004l[?2004h[?1049h[22;0;0t[1;24r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[22;54H(B[0;7m[ Reading... ](B[m[22;53H(B[0;7m[ Read 11 lines ](B[m[H(B[0;7m  GNU nano 6.2                                          asg1_script.sh                                                   [1;120H(B[m[23d(B[0;7m^G(B[m Help[23;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[23;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo[106G(B[0;7mM-A(B[m Set Mark[24d(B[0;7m^X(B[m Exit[24;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo[106G(B[0;7mM-6(B[m Copy[2d[36m#!/bin/bash[4d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Running Assignment 1 Script"[6d[34mcd[39m(B[m ~[7d(B[0;1m[34mmkdir[39m(B[m myDirectory [32m&&[39m(B[m (B[0;1m[34mcd[39m(B[m (B[0;1m[31m$_[8d[34mmkdir[39m(B[m secondDirectory [32m&&[39m(B[m (B[0;1m[34mcd[39m(B[m (B[0;1m[31m$_[9d[34mtouch[39m(B[m myNotePaper[10d(B[0;1m[34mcd[39m(B[m ..[11d(B[0;1m[34mcp[39m(B[m secondDirectory/myNotePaper ./myOldNotePaper[2d[?12l[?25h[?25l[22;53H (B[0;7m[ Writing... ](B[m[K[1;120H[22;52H(B[0;7m[ Wrote 11 lines ](B[m[?12l[?25h[2d[?25l[22;32H(B[0;7m[ line  1/12 ( 8%), col  1/12 (  8%), char   0/185 ( 0%) ](B[m[?12l[?25h[2d[?25l[22;90H[?12l[?25h[2d[?25l[22d[J[24d[?12l[?25h[24;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/AdminLinux_Task1[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/AdminLinux_Task1[00m$ cd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments[00m$ ls
+[?2004l[0m[01;34mAdminLinux_Task1[0m  [01;34mBashrcScript_Task3[0m  [01;34mBinarySearch_Task2[0m  [01;34mUserGroup_Task4[0m
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments[00m$ cd BashrcScript_Task3/
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/BashrcScript_Task3[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/BashrcScript_Task3[00m$ ls
+[?2004l[0m[01;32masg3_script.bash[0m
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/BashrcScript_Task3[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/BashrcScript_Task3[00m$ nano asg3_script.bash 
+[?2004l[?2004h[?1049h[22;0;0t[1;24r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[22;54H(B[0;7m[ Reading... ](B[m[22;53H(B[0;7m[ Read 14 lines ](B[m[H(B[0;7m  GNU nano 6.2                                         asg3_script.bash                                                  [1;120H(B[m[23d(B[0;7m^G(B[m Help[23;16H(B[0;7m^O(B[m Write Out   (B[0;7m^W(B[m Where Is    (B[0;7m^K(B[m Cut[23;61H(B[0;7m^T(B[m Execute     (B[0;7m^C(B[m Location    (B[0;7mM-U(B[m Undo[106G(B[0;7mM-A(B[m Set Mark[24d(B[0;7m^X(B[m Exit[24;16H(B[0;7m^R(B[m Read File   (B[0;7m^\(B[m Replace     (B[0;7m^U(B[m Paste[61G(B[0;7m^J(B[m Justify     (B[0;7m^/(B[m Go To Line  (B[0;7mM-E(B[m Redo[106G(B[0;7mM-6(B[m Copy[2d[36m#!/bin/bash[4d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Running Script ...\n"[6d[34mcd[39m(B[m ~/[8d[32mif[39m(B[m [32m[(B[0;1m[35m -a[39m(B[m .bashrc [32m][9;2Hthen[10d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"HELLO="[31m$HOSTNAME[33m""[39m(B[m [32m>>[39m(B[m .bashrc[11;5H(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"LOCAL=$(whoami)"(B[0m[32m>>[39m(B[m.bashrc[12;5Hgnome-terminal [32m&[39m(B[m disown[13d[32melse[14d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"Not Found!\n"[15d(B[0m[32mfi[2d[39m(B[m[?12l[?25h[?25l[22d[J[24d[?12l[?25h[24;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments/BashrcScript_Task3[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments/BashrcScript_Task3[00m$ cd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments[00m$ ls
+[?2004l[0m[01;34mAdminLinux_Task1[0m  [01;34mBashrcScript_Task3[0m  [01;34mBinarySearch_Task2[0m  [01;34mUserGroup_Task4[0m
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments[00m$ cd [K[K[Kcd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ cd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI[00m$ cd Embedded-Linux/
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ git
+[?bedded-Linux/Assignments/BashrcScript_Task3[00m$ cd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments[00m$ ls
+[?2004l[0m[01;34mAdminLinux_Task1[0m  [01;34mBashrcScript_Task3[0m  [01;34mBinarySearch_Task2[0m  [01;34mUserGroup_Task4[0m
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux/Assignments[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux/Assignments[00m$ cd [K[K[Kcd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ cd ..
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI[00m$ cd Embedded-Linux/
+[?2004l[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ git
+[?2004lusage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           [--super-prefix=<path>] [--config-env=<name>=<envvar>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone     Clone a repository into a new directory
+   init      Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add       Add file contents to the index
+   mv        Move or rename a file, a directory, or a symlink
+   restore   Restore working tree files
+   rm        Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect    Use binary search to find the commit that introduced a bug
+   diff      Show changes between commits, commit and working tree, etc
+   grep      Print lines matching a pattern
+   log       Show commit logs
+   show      Show various types of objects
+   status    Show the working tree status
+
+grow, mark and tweak your common history
+   branch    List, create, or delete branches
+   commit    Record changes to the repository
+   merge     Join two or more development histories together
+   rebase    Reapply commits on top of another base tip
+   reset     Reset current HEAD to the specified state
+   switch    Switch branches
+   tag       Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch     Download objects and refs from another repository
+   pull      Fetch from and integrate with another repository or a local branch
+   push      Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+See 'git help git' for an overview of the system.
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded_Linux_NTI/Embedded-Linux[01;32menigma@enigma-virtual-machine[00m:[01;34m~/Embedded_Linux_NTI/Embedded-Linux[00m$ git status
+[?2004lOn branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	[31mmodified:   Assignments/UserGroup_Task4/asg4_script.bash[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31mtypescript[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[?2004h]0;enigma@enigma-virtual-machine: ~/Embedded

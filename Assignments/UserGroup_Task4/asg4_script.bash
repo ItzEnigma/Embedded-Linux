@@ -1,11 +1,11 @@
-#!/bin/bash/
+#!/bin/bash
 
 echo "Running Script ..."
 
 #echo "Enter the new user name"
 read -p "Enter the new user name: " usrName
 
-if grep -q $usrName /etc/passwd
+if [ $( grep -q $usrName /etc/passwd) ]
 then
     echo "User Already Exists!"
     exit
