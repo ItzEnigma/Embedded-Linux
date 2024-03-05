@@ -20,7 +20,8 @@ a. Change the permissions of oldpasswd file to give owner read and write permiss
   sudo chmod 631 oldpasswd
   # OR
   # Using symbolic/word representation
-  sudo chmod u+rw oldpasswd && sudo chmod g+wx oldpasswd && sudo chmod o+x oldpasswd
+  sudo chmod u+rw oldpasswd && sudo chmod g+wx oldpasswd && sudo chmod o+x oldpasswd   # First Method (Not Efficient)
+  sudo chmod u=rw,g=wx,o=x oldpasswd      # Make sure there are no spaces !!!
   ```
 b. Change your default permissions to be as above.
   ``` bash
@@ -29,7 +30,7 @@ b. Change your default permissions to be as above.
 c. What is the maximum permission a file can have, by default when it is just created? And what is that for directory.
 * **New files:** 666 - 022 = 644
 * **New directories:** 777 - 022 = 755
-* 
+  
 d. Change your default permissions to be no permission to everyone then create a directory and a file to verify.
 
   ``` bash
@@ -43,3 +44,32 @@ e. State who can access this file if any with proof.
 7. What is the difference between the “x” permission for a file and for a directory?
 > For **directories** means, that if we can access **( cd )** the directory
 > for **files** means, that we cannot execute _(script)_ or edit _(write)_ file ... we can only read _(cat)_
+
+---
+
+### 1. Set the sticky bit on the newly created directory.
+``` bash
+chmod +t test_directory
+```
+
+### 2. Set the setgui bit on the created directory
+``` bash
+chmod g+s test_directory
+```
+
+### 3. Create multiple user accounts.
+``` bash
+sudo adduser user1
+sudo adduser user2
+```
+
+### 4. Allow these users to create files within the directory and directory.
+``` bash
+chown :user1 test_directory
+chmod g+rwx test_directory
+```
+
+### 5. Provide a clear output for the directory created.
+``` bash
+ls -ld test_directory
+```
