@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Running Script ..."
+
+mkdir "backup_dir"
+#echo "Backup Directory is created"
+
+
+# Read n-arguments from the terminal
+for args in "$@"
+do
+    # -f --> file exists?
+    # -d --> directory exists?
+    # You can specify the path --> ~/test/$args
+    # another form to write it without using square brackets but with using test
+    #   test -d /path/to/directory
+    if [ -d $args ]     # if exists
+    then
+        # "%Y-%m-%d" --> 2024-03-15
+        # "%H-%M-%S" --> 17-29-52
+        tmp_date=$(date +"%Y%m%d%H%M")
+        # -cJf --> xz (.xz)
+        # -cjf --> bzip2 (.bz2)
+        # -czf --> gzip (.gz)
+        tar -czf backup_dir/backup_"$args"_"$tmp_date".tar.gz $args
+        echo "backup_"$args"_"$tmp_date".tar.gz was created"
+    else
+        echo "Directory does not exist!"
+    fi
+done
+

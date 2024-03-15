@@ -1,0 +1,6 @@
+Running Script ...
+backup_t1_202403151758.tar.gz was created
+backup_t2_202403151758.tar.gz was created
+Directory does not exist!
+backup_t4_202403151758.tar.gz was created
+Directory does not exist!
