@@ -41,6 +41,8 @@ cd u-boot/
 git checkout v2022.07        # You can go to a working commit just in case
 ```
 
+---
+
 ### Configure U-Boot Machine
 
 In this section we will **configure** u-boot for several Machine
@@ -51,6 +53,8 @@ ls configs/ | grep [your machine]
 ```
 
 > :grey_exclamation: We will be emulating target: vexpress_ca9x4_defconfig
+
+---
 
 ### Vexpress Cortex A9 (Qemu)
 
@@ -66,6 +70,8 @@ export ARCH=arm
 # load the default configuration of ARM Vexpress Cortex A9
 make vexpress_ca9x4_defconfig
 ```
+
+---
 
 ### Configure U-Boot
 
@@ -84,6 +90,8 @@ make menuconfig
 - [ ] Support **FAT file system**
 - [ ] Configure the FAT interface to **mmc** _(**M**ulti **M**edia **C**ard)_
 - [ ] Configure the partition where the fat is store to **0:1** _(Device 0 : Partition 1 [boot partition])_
+
+---
 
 ### Build U-Boot
 
@@ -127,6 +135,8 @@ cd ..
 dd if=/dev/zero of=sd.img bs=1M count=1024
 ```
 
+---
+
 #### Create `Partition Table` for the SD Image File
 
 ```bash
@@ -147,6 +157,8 @@ cfdisk /dev/mmblck<x>   # Or sdX ... depending on how the SD card is recognized 
 
 > :grey_exclamation: **Size of the partitions can be adjusted according to the requirements.**
 
+---
+
 #### Attach `Loop Device`
 
 > :exclamation: **FOR Virtual usage ONLY**
@@ -160,6 +172,8 @@ sudo losetup -f --show --partscan sd.img
 # Running the upper command will show you
 # Which loop device the sd.img is connected
 ```
+
+---
 
 #### Format Partition Table
 
@@ -183,6 +197,8 @@ sudo mkfs.ext4 -L rootfs ${DISK}p2
 # You can change the label of the partition to anything!
 ```
 
+---
+
 #### Mount Partitions
 
 You can mount the partitions to the system to be able to write/see the content of the partitions.
@@ -202,6 +218,8 @@ sudo mount  ${DISK}p2 ~/testing_mount/rootfs
 > :exclamation: **Loop Device** is used because, the `sd.img` file contains **two partitions**, **and the system can't mount the partitions directly from the file.**
 
 > :grey_exclamation: **`umount`** command is used to unmount the partitions from the system. ... loop device can be detached using **`losetup -d /dev/loop<x>`**
+
+---
 
 #### Completely erase the SD card
 
@@ -246,6 +264,8 @@ setenv bootcmd "if run imageFat; then run load_fromFat; else run load_fromTFTP; 
 bootz $kernel_addr_r - $fdt_addr_r"
 ```
 
+---
+
 ### Convert To Uboot Image
 
 ```bash
@@ -258,6 +278,8 @@ mkimage -T script -C none -n "uboot_script" -d uboot_script.txt uboot_script.img
 - **-n** --> Image Name
 - **-d** --> Input File then Output file
 
+---
+
 ### Copy Image To Boot Partition
 
 ```bash
@@ -265,6 +287,8 @@ mkimage -T script -C none -n "uboot_script" -d uboot_script.txt uboot_script.img
 # To: SD_Card boot partition
 sudo cp .../uboot_script.img .../boot/
 ```
+
+---
 
 ### Load Script Into Uboot
 
