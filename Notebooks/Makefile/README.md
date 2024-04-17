@@ -26,6 +26,8 @@ Popular **_C/C++_** alternative build systems are `SCons`, `CMake`, `Bazel`, and
 
 **Interpreted languages** like `Python`, `Ruby`, and `raw Javascript` don't require an analogue to Makefiles. The goal of Makefiles is to **compile** whatever files need to be compiled, based on what files have changed. But when files in interpreted languages change, nothing needs to get recompiled. When the program runs, the most recent version of the file is used.
 
+---
+
 ### How it works?
 
 Make tool parses the `makefile` to determine which files need to be updated and issues commands to update them. _(It is a bit like a shell script with some extra syntax to make it easier for resolving dependencies.)_
@@ -35,6 +37,8 @@ Make tool parses the `makefile` to determine which files need to be updated and 
 - **GNU Make:** The most widely used version of Make.
 - **BSD Make:** The version of Make that comes with BSD Unix systems.
 - **CMake:** A cross-platform build system that generates Makefiles.
+
+---
 
 ### Why use Make?
 
@@ -52,6 +56,8 @@ Make tool parses the `makefile` to determine which files need to be updated and 
 > :heavy_exclamation_mark: **Makefiles must be indented using `TABs` and not `spaces` or make will fail.**
 >
 > :grey_exclamation: Makefiles can access **`Environment Variables`**, **`Shell Commands`** and **`External Scripts/Binaries`**.
+
+---
 
 ### `set of rules:`
 
@@ -92,6 +98,8 @@ display:
 ```
 
 > :grey_exclamation: **Disable Echoing Commands:** by using **`@`** (e.g. `@echo "Hello, World!"`)
+
+---
 
 #### Automatic Variables
 
@@ -149,6 +157,8 @@ all:
 ```
 
 > :grey_exclamation: You can use `$1` or `${1}` both are valid, and note that you have to use **call** to call your function.
+
+---
 
 #### Built-in Functions
 
@@ -211,6 +221,8 @@ my_target:
 >
 > :exclamation: Note that **`# Comments`** show in the output.
 
+---
+
 ### Loops
 
 You can use bash-script loops and foreach loops in Makefiles.
@@ -225,6 +237,8 @@ my_target2:
   echo $(list2)
 ```
 
+---
+
 ### `.Phony` Targets
 
 adding `.PHONY` to a target will prevent Make from confusing the phony target with a filename
@@ -237,6 +251,8 @@ clean:
     rm -f *.exe
 ```
 
+---
+
 ### Include Files
 
 You can include other makefiles using the `include` directive.
@@ -244,6 +260,8 @@ You can include other makefiles using the `include` directive.
 ```make
 include other.mk
 ```
+
+---
 
 ## Compilation
 
@@ -289,6 +307,8 @@ build2: ${var}
 build_method2: build2
 $(CC)   $(CFLAGS) $(var) -o main_build2
 ```
+
+---
 
 ## Making Libraries
 
