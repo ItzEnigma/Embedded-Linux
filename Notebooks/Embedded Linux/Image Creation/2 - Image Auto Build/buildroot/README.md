@@ -84,6 +84,8 @@ make           # It might take sometime 30mins : 2hours+
 
 > :white_check_mark: After finishing ... the output will be on ./output/ directory ... containing all the images
 
+---
+
 ### Configurations Requirements
 
 - [ ] Change **`toolchain vendor name`**
@@ -223,6 +225,8 @@ ip a add 192.168.0.1/24 dev $1
 ip link set $1 up
 ```
 
+---
+
 #### SSH Connection
 
 For qemu emulation, first you have to make sure that **`tap` virtual interface** is created and up ... check **`ifconfig`** on your **host** after running the **qemu emulation** to check if it was created ... **If not check your qemu script!**
@@ -277,6 +281,8 @@ sudo dd if=/dev/zero of=/dev/sdc     # Hard Format
 sudo dd if=sd.img of=/dev/sdc        # Soft Format & Just copy the image
 ```
 
+---
+
 #### Raspberry PI Image
 
 ```bash
@@ -293,6 +299,8 @@ make menuconfig
 ```
 
 > :grey_exclamation: `zImage` is compressed is for **32-bit** arch. ... while the `Image` is for **64-bit** arch.
+
+---
 
 #### Configuration Requirements
 
@@ -338,6 +346,8 @@ l5:5:wait:/etc/init.d/rc 5
 l6:6:wait:/etc/init.d/rc 6
 ```
 
+---
+
 ### Create `rc.d` directory with subdirectories
 
 Runlevel directory **`rc.d`** needs to be created and also create the **`rcN.d`** sub-directories **for each runlevel** **`(/etc/rc.d/rc[1-5].d/)`**. These directories contain symbolic links to specific scripts inside **`/etc/init.d`**, indicating which services should be started or stopped when the system enters a particular runlevel.
@@ -350,6 +360,8 @@ mkdir /etc/rc.d
 cd /etc/rc.d/
 mkdir rc1.d rc2.d rc3.d rc4.d rc5.d
 ```
+
+---
 
 ### Create `rc` script
 
@@ -432,6 +444,8 @@ esac
 exit 0
 ```
 
+---
+
 #### Add Service Script
 
 Create the **service script** inside **`/etc/init.d`** directory ... that will be executed during the specific runlevel ... **the script shall contain the application/binaries/scripts to be run!**
@@ -485,6 +499,8 @@ ln -s /etc/init.d/enigmapckg /etc/rc.d/rc3.d/S40enigmapckg
 ln -s /etc/init.d/enigmapckg /etc/rc.d/rc4.d/K40enigmapckg
 ```
 
+---
+
 ## Systemd
 
 System Daemon is an init system process, that manage system settings and services. systemd organizes tasks into components called **units**, and groups of units into **targets**, that can be used to create dependencies on other system services and resources. **systemd can start units and targets automatically at boot time, or when requested by a user or another systemd target when a server is already running.**
@@ -496,6 +512,8 @@ The **`systemctl`** command is used to interact with processes that are controll
 - **Dependency Management:** systemd handles service dependencies automatically based on the directives specified in unit files, simplifying service management.
 - **Logging and Monitoring:** systemd includes advanced logging and monitoring capabilities through the **journal** **`(systemd-journald)`**, which centralizes system logs and provides efficient querying and filtering capabilities.
 
+---
+
 ### Create Unit File
 
 Typically stored in the **`/usr/lib/systemd/system/`** directory or **`/etc/systemd/system/`** directory **_(Usually as soft-link)_**. You can create your unit file with a **.service** extension, as most unit files correspond to services.
@@ -504,6 +522,8 @@ Typically stored in the **`/usr/lib/systemd/system/`** directory or **`/etc/syst
 cd /lib/systemd/system
 sudo vim enigma.service # Create service
 ```
+
+---
 
 ### Unit File Structure
 
