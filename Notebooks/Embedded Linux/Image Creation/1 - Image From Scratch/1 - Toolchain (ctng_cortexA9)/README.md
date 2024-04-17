@@ -21,6 +21,8 @@
 
 First clone the CrossTool-NG repo. ... then go to a valid working commit _(like: **25f6dae8**)_
 
+---
+
 ### Initialize the CrossTool-NG Environment
 
 ```bash
@@ -41,6 +43,8 @@ First clone the CrossTool-NG repo. ... then go to a valid working commit _(like:
 > ```
 
 :arrow_forward: **Continuity of `ct-ng` commands for building toolchain**
+
+---
 
 ### Building the Toolchain
 
