@@ -16,6 +16,7 @@
   - [Notebooks](Notebooks/)
     - [C++ Notebook](Notebooks/C++/)
     - [Embedded Linux Notebook](Notebooks/Embedded%20Linux)
+    - [Makefile](Notebooks/Makefile)
   - [C++ Workspace](C++-workspace/)
 ---
 
@@ -28,8 +29,9 @@ This is a collection of notes and resources for Embedded Linux development ... t
 - [Assignments (Admin Linux/Embedded Linux)](Assignments/)
 - [Notebooks](Notebooks/)
 - [C++ Workspace](C++-workspace/)
+- [Makefile](Notebooks/Makefile)
 
-Where, **Assignments** contains the tasks for linux and embedded linux, **Notebooks** contains the notes for **linux**, **embedded linux**, **C++** and **IoT**, **C++ Workspace** contains the C++ programming notes, tasks and solved problems and **IoT** contains the notes and resources for Internet of Things.
+Where, **Assignments** contains the tasks for linux and embedded linux, **Notebooks** contains the notes for **linux**, **embedded linux**, **C++**, **Makefile** and **IoT**, **C++ Workspace** contains the C++ programming notes, tasks and solved problems and **IoT** contains the notes and resources for Internet of Things.
 
 ---
 
