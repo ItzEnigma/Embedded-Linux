@@ -18,6 +18,8 @@ Discussing various tips for yocto and issues that you could face with yocto.
 
 > :grey_exclamation: Adding a meta layer ... doesn't increase size or anything! ... size increases based on the used recipes!
 
+---
+
 ## Build Directory
 
 When creating multiple images for various architectures ... Don't seperate the **`download`**, **`sstate-cache`** and **`tmp`** directories ... as this will cause `re-downloading`/`re-unpacking`/`re-compiling` and `re-building` in general from **scratch**!
@@ -33,6 +35,8 @@ DL_DIR ?= "/path/to/your/poky/build/downloads"
 SSTATE_DIR ?= "/path/to/your/poky/build/sstate-cache"
 TMPDIR = "/path/to/your/poky/build/tmp"
 ```
+
+---
 
 ### `rm_work` class
 
