@@ -92,6 +92,8 @@ sudo apt install nfs-kernel-server
 sudo exportfs -r
 ```
 
+---
+
 ### Setup `Bootargs` in `U-Boot`
 
 ```bash
@@ -114,6 +116,8 @@ Also called _`initrd`_ ... `initramfs` _(initial ramdisk filesystem)_ is a tempo
 - choose what's necessary to be mounted and used from rootfs initially.
 
 > :exclamation: `initramfs` is removed once everything is done, and the **init process** takes control!
+
+---
 
 ### Making `initramfs`
 
