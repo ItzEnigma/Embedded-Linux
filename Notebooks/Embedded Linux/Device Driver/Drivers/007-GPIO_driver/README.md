@@ -22,7 +22,7 @@ The objective to create a simple GPIO driver for Raspberry Pi using Yocto. The d
 4. Modify the recipe with the necessary changes. _(like adding the source files, etc.)_
 5. Modify the **Makefile** to fit your source files.
 6. **Bitbake** your kernel recipe module to check if everything is working. **You might get compiler errors due to kernel version mismatch. ... _just try to fix them._** `bitbake <your-kernel-module-recipe-name>`
-7. If it builds successfully, then you can try to **bitbake** your image to check if the GPIO driver module is included in the kernel. `bitbake <your-image-recipe-name>`
+7. If it builds successfully, then you can try to **bitbake** your image to check if the GPIO driver module is included in the kernel. `bitbake <your-image-recipe-name>` **(Don't forget to `IMAGE_INSTALL` your kernel module recipe)**
 8. Flash the image to your Raspberry Pi and check if the GPIO driver module is working. Your module would be under `/lib/modules/<kernel-version>/extra/` directory.
 
 ### Recipe Structure

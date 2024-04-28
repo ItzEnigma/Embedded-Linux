@@ -416,3 +416,25 @@ CHAR_ERROR:
 }
 
 ```
+
+---
+
+## Adding Kernel Module Through `Yocto`
+
+To add a kernel module to the `Yocto` build, you have to make a recipe for it ... and add it to the `meta-layer` of the `Yocto` build. The recipe should contain the following:
+
+> :grey_exclamation: You can find a reference kernel module recipe example in the `meta-skeleton` layer under recipes-kernel directory.
+
+- The source code of the module
+- The `Makefile` of the module
+- The `bb` file of the module
+  - The `bb` file should contain the following:
+    - License of the module
+    - The `SRC_URI` of the module
+    - The `S` variable which points to the source code directory
+    - inherit the `module` class
+    - `RPROVIDES_${PN} = "${PN}-kernel-module"` ... to provide the kernel module
+
+> :exclamation: Make sure to add the `linux` recipe example to your `meta-layer` to be able to build the kernel module.
+
+You can check the `007-GPIO_Driver` for more information about the source file _(GPIO)_ and adding it using yocto to Raspberry Pi.
