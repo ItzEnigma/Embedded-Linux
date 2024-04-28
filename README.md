@@ -4,19 +4,19 @@
 
 This is a collection of notes and resources for Embedded Linux development ... the repository is a work in progress and will be updated regularly, and it's divided into the following sections:
 
-- [Assignments (Admin Linux/Embedded Linux)](Assignments/)
+- [Tasks (Admin Linux/Embedded Linux)](Tasks/)
 - [Notebooks](Notebooks/)
 - [C++ Workspace](C++-workspace/)
 - [Makefile](Notebooks/Makefile)
 
-Where, **Assignments** contains the tasks for linux and embedded linux, **Notebooks** contains the notes for **linux**, **embedded linux**, **C++**, **Makefile** and **IoT**, **C++ Workspace** contains the C++ programming notes, tasks and solved problems and **IoT** contains the notes and resources for Internet of Things.
+**Tasks** contains the tasks for linux and embedded linux, **Notebooks** contains the notes for **linux**, **embedded linux**, **C++**, **Makefile** and **IoT**, **C++ Workspace** contains the C++ programming notes, tasks and solved problems and **IoT** contains the notes and resources for Internet of Things.
 
 ---
 
 ## Navigation
 
 - [Embedded-Linux](#embedded-linux/): Admin Linux and some Embedded Linux tasks.
-- [Assignments](Assignments/): Contains the tasks for Admin Linux and Embedded Linux.
+- [Tasks](Tasks/): Contains the tasks for Admin Linux and Embedded Linux.
 - [Notebooks](Notebooks/): Contains the notes for Linux, Embedded Linux, C++, Makefile and IoT.
   - [C++ Notebook](Notebooks/C++/): Contains the notes for C++ programming.
   - [Image Creation Notebook](Notebooks/Embedded%20Linux/Image%20Creation/): Contains the notes for creating an image for Embedded Linux _(from scratch and using autobuild tools like buildroot & **yocto**)_
