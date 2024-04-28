@@ -24,6 +24,7 @@
     - [Read/Write Functions](#readwrite-functions)
     - [Permissions](#permissions)
   - [Error Handling](#error-handling)
+  - [Adding Kernel Module Through `Yocto`](#adding-kernel-module-through-yocto)
 
 ## Device Driver
 
