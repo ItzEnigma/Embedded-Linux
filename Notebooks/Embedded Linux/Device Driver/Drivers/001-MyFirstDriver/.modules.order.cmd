@@ -1,1 +1,0 @@
-savedcmd_/home/enigma/Desktop/NTI/DTD/001-MyFirstDriver/modules.order := {   echo /home/enigma/Desktop/NTI/DTD/001-MyFirstDriver/mydriver.o; :; } > /home/enigma/Desktop/NTI/DTD/001-MyFirstDriver/modules.order

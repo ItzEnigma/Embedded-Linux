@@ -1,1 +1,0 @@
-savedcmd_/home/enigma/Desktop/NTI/DTD/003-DeviceCharacter/Module.symvers :=  scripts/mod/modpost -m -a      -o /home/enigma/Desktop/NTI/DTD/003-DeviceCharacter/Module.symvers -T /home/enigma/Desktop/NTI/DTD/003-DeviceCharacter/modules.order -i Module.symvers -e 

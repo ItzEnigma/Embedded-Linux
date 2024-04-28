@@ -1,1 +1,0 @@
-savedcmd_/home/enigma/Desktop/NTI/DTD/006-PlatformDriver/Module.symvers :=  scripts/mod/modpost -m -a      -o /home/enigma/Desktop/NTI/DTD/006-PlatformDriver/Module.symvers -T /home/enigma/Desktop/NTI/DTD/006-PlatformDriver/modules.order -i Module.symvers -e 

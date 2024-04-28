@@ -1,1 +1,0 @@
-savedcmd_/home/enigma/Desktop/NTI/DTD/001-MyFirstDriver/mydriver.mod := printf '%s\n'   mydriver.o | awk '!x[$$0]++ { print("/home/enigma/Desktop/NTI/DTD/001-MyFirstDriver/"$$0) }' > /home/enigma/Desktop/NTI/DTD/001-MyFirstDriver/mydriver.mod

@@ -1,1 +1,0 @@
-savedcmd_/home/enigma/Desktop/NTI/DTD/003-DeviceCharacter/modules.order := {   echo /home/enigma/Desktop/NTI/DTD/003-DeviceCharacter/devicecharacter.o; :; } > /home/enigma/Desktop/NTI/DTD/003-DeviceCharacter/modules.order
