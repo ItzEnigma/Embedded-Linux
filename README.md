@@ -19,8 +19,8 @@ This is a collection of notes and resources for Embedded Linux development ... t
 - [Tasks](Tasks/): Contains the tasks for Admin Linux and Embedded Linux.
 - [Notebooks](Notebooks/): Contains the notes for Linux, Embedded Linux, C++, Makefile and IoT.
   - [C++ Notebook](Notebooks/C++/): Contains the notes for C++ programming.
-  - [Image Creation Notebook](Notebooks/Embedded%20Linux/Image%20Creation/): Contains the notes for creating an image for Embedded Linux _(from scratch and using autobuild tools like buildroot & **yocto**)_
-  - [Device Drivers Notebook](Notebooks/Embedded%20Linux/Device%20Driver/): Contains the notes for writing device drivers for Embedded Linux and code examples.
+  - [Image Creation](Notebooks/Embedded%20Linux/Image%20Creation/): Contains the notes for creating an image for Embedded Linux _(from scratch and using autobuild tools like buildroot & **yocto**)_
+  - [Device Drivers](Notebooks/Embedded%20Linux/Device%20Driver/): Contains the notes for writing device drivers for Embedded Linux and code examples.
 - [C++ Workspace](C++-workspace/): Contains the C++ programming examples and solved problems.
 
 ---
