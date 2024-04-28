@@ -1,0 +1,1 @@
+savedcmd_/home/enigma/Desktop/NTI/DTD/004-DeviceCharacterPerm/modules.order := {   echo /home/enigma/Desktop/NTI/DTD/004-DeviceCharacterPerm/devicecharacterperm.o; :; } > /home/enigma/Desktop/NTI/DTD/004-DeviceCharacterPerm/modules.order

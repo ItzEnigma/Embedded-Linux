@@ -1,0 +1,1 @@
+savedcmd_/home/enigma/Desktop/NTI/DTD/004-DeviceCharacterPerm/devicecharacterperm.mod := printf '%s\n'   devicecharacterperm.o | awk '!x[$$0]++ { print("/home/enigma/Desktop/NTI/DTD/004-DeviceCharacterPerm/"$$0) }' > /home/enigma/Desktop/NTI/DTD/004-DeviceCharacterPerm/devicecharacterperm.mod

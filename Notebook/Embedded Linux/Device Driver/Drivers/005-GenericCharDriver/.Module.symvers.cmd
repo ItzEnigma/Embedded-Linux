@@ -1,0 +1,1 @@
+savedcmd_/home/enigma/Desktop/NTI/DTD/005-GenericCharDriver/Module.symvers :=  scripts/mod/modpost -m -a      -o /home/enigma/Desktop/NTI/DTD/005-GenericCharDriver/Module.symvers -T /home/enigma/Desktop/NTI/DTD/005-GenericCharDriver/modules.order -i Module.symvers -e 

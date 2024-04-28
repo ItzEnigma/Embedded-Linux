@@ -1,0 +1,1 @@
+savedcmd_/home/enigma/Desktop/NTI/DTD/002-MySecondDriver/Module.symvers :=  scripts/mod/modpost -m -a      -o /home/enigma/Desktop/NTI/DTD/002-MySecondDriver/Module.symvers -T /home/enigma/Desktop/NTI/DTD/002-MySecondDriver/modules.order -i Module.symvers -e 
