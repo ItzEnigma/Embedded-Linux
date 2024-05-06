@@ -50,7 +50,7 @@ static pcDriver_private_data_t pcdrv_data = {
         [3] = {
             .name = "enigma_char4",
             .id = 3,
-            .perms = RDONLY,
+            .perms = RDWR,
             .buffer = device_buffer_pcdev4,
             .size = MEM_SIZE_PCDEV4
         },
@@ -226,7 +226,7 @@ ssize_t pcd_write(struct file *filp, const char __user *buffer, size_t size, lof
 
     /* ------------------------ DEVICE SPECIFIC ------------------------ */
     
-    if(local_pcdev_data->id == 1)   /* DIO1 Direction */
+    if(local_pcdev_data->id == 0)   /* DIO1 Direction */
     {
         if( copy_from_user(value, buffer, 1) ) goto Copy_Error;
         
@@ -249,7 +249,7 @@ ssize_t pcd_write(struct file *filp, const char __user *buffer, size_t size, lof
             return -EINVAL;
         }
     }
-    else if(local_pcdev_data->id == 2)  /* DIO1 Value */
+    else if(local_pcdev_data->id == 1)  /* DIO1 Value */
     {
         if( copy_from_user(value, buffer, 1) ) goto Copy_Error;
 

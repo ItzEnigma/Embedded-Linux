@@ -32,8 +32,10 @@
 
 #define BUFFER_SIZE         2
 #define NO_OF_DRIVERS       1
-#define NO_OF_DIOS_USED     2
-#define GPIO_START_PIN      5           // GPIO Pins are sequential starting from 5
+#define NO_OF_DIOS_USED     5
+#define GPIO_START_PIN      0
+
+#define MAXIMUM_PINS        10
 
 /* Permission codes */
 #define RDONLY 0x01
@@ -61,7 +63,7 @@ typedef struct {
     dev_t dev_num;                  // Device number
     struct class *class_pcd;       // will appear under `/sys/class`
     struct device *device_pcd;     // will appear under `/dev`
-    pcDevice_private_data_t pcdev_data[NO_OF_DIOS_USED];
+    pcDevice_private_data_t pcdev_data[MAXIMUM_PINS];
 
 } pcDriver_private_data_t;
 

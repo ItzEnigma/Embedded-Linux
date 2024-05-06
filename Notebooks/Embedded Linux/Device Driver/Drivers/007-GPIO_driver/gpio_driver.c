@@ -2,7 +2,7 @@
  *  Author:       Hosam Mohamed
  *  Date:         -
  *  Version:      1.0
- *  ------------------------------s-------------------------------------------------------------------------------------
+ *  -------------------------------------------------------------------------------------------------------------------
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
  *         FILE:  gpio_driver.C
@@ -15,7 +15,7 @@
 
 /************************************* GLOBAL VARIABLES *************************************/
 
-/* pseudo device's memory (for DIOs) */
+/* pseudo device's memory */
 char buffer_dio1[BUFFER_SIZE];
 char buffer_dio2[BUFFER_SIZE];
 
@@ -23,26 +23,70 @@ char buffer_dio2[BUFFER_SIZE];
 static pcDriver_private_data_t pcdrv_data = {
     .no_of_devices = NO_OF_DIOS_USED,
     .pcdev_data = {
-        [0] = {
-            .name = "dio1",
-            .id = 0,
-            .perms = RDWR,
-            .buffer = buffer_dio1,
-            .size = BUFFER_SIZE
-        },
-        [1] = {
-            .name = "dio2",
-            .id = 1,
-            .perms = RDWR,
-            .buffer = buffer_dio2,
-            .size = BUFFER_SIZE
-        }
-    }
-};
+        [0] = {/* GPIO0 --> Output */
+               .name = "dio0",
+               .id = 0,
+               .perms = RDWR,
+               .buffer = buffer_dio1,
+               .size = BUFFER_SIZE},
+        [1] = {/* GPIO1 --> Output */
+               .name = "dio1",
+               .id = 1,
+               .perms = RDWR,
+               .buffer = buffer_dio2,
+               .size = BUFFER_SIZE},
+        [2] = {/* GPIO2 --> Output */
+               .name = "dio2",
+               .id = 2,
+               .perms = RDWR,
+               .buffer = buffer_dio1,
+               .size = BUFFER_SIZE},
+        [3] = {/* GPIO3 --> Input */
+               .name = "dio3",
+               .id = 3,
+               .perms = RDONLY,
+               .buffer = buffer_dio2,
+               .size = BUFFER_SIZE},
+        [4] = {/* GPIO4 --> Input */
+               .name = "dio4",
+               .id = 4,
+               .perms = RDONLY,
+               .buffer = buffer_dio1,
+               .size = BUFFER_SIZE},
+        [5] = {/* GPIO5 --> Input */
+               .name = "dio5",
+               .id = 5,
+               .perms = RDONLY,
+               .buffer = buffer_dio2,
+               .size = BUFFER_SIZE},
+        [6] = {/* GPIO6 --> Output */
+               .name = "dio6",
+               .id = 6,
+               .perms = RDWR,
+               .buffer = buffer_dio1,
+               .size = BUFFER_SIZE},
+        [7] = {/* GPIO7 --> Output */
+               .name = "dio7",
+               .id = 7,
+               .perms = RDWR,
+               .buffer = buffer_dio2,
+               .size = BUFFER_SIZE},
+        [8] = {/* GPIO8 --> Output */
+               .name = "dio8",
+               .id = 8,
+               .perms = RDWR,
+               .buffer = buffer_dio1,
+               .size = BUFFER_SIZE},
+        [9] = {/* GPIO9 --> Output */
+               .name = "dio9",
+               .id = 9,
+               .perms = RDWR,
+               .buffer = buffer_dio2,
+               .size = BUFFER_SIZE}}};
 /* ------------------------------------ */
 /* File operations structure:
  * Setting the file operations functions to the defined functions
-*/
+ */
 static struct file_operations fops = {
     .open = pcd_open,
     .release = pcd_release,
@@ -51,7 +95,6 @@ static struct file_operations fops = {
 };
 
 /***********************************************************************************************/
-
 
 /************************************* FUNCTION DEFINITIONS *************************************/
 
@@ -69,19 +112,19 @@ int check_openPermissions(int dev_perm, int access_mode)
      *          -EPERM  --> operation not permitted
      */
 
-    if(dev_perm == RDWR)
+    if (dev_perm == RDWR)
     {
         return 0;
     }
 
     /* Read only */
-    if((dev_perm == RDONLY) && ((access_mode & FMODE_READ) && !(access_mode & FMODE_WRITE)))
+    if ((dev_perm == RDONLY) && ((access_mode & FMODE_READ) && !(access_mode & FMODE_WRITE)))
     {
         return 0;
     }
 
     /* Write only */
-    if((dev_perm == WRONLY) && ((access_mode & FMODE_WRITE) && !(access_mode & FMODE_READ)))
+    if ((dev_perm == WRONLY) && ((access_mode & FMODE_WRITE) && !(access_mode & FMODE_READ)))
     {
         return 0;
     }
@@ -105,7 +148,7 @@ int pcd_open(struct inode *inode, struct file *filp)
     /* Get the minor number */
     minor_n = MINOR(inode->i_rdev);
     pr_info("[%s] - Minor number = %d\n", __func__, minor_n);
-    
+
     /* Get device's private data */
     pcDevice_private_data_t *pcdev_data = container_of(inode->i_cdev, pcDevice_private_data_t, cDev);
 
@@ -114,7 +157,7 @@ int pcd_open(struct inode *inode, struct file *filp)
 
     /* Check open permissions */
     r_err = check_openPermissions(pcdev_data->perms, filp->f_mode);
-    if(r_err)
+    if (r_err)
     {
         pr_info("[%s] - Operation not permitted\n", __func__);
         return r_err;
@@ -136,21 +179,25 @@ int pcd_open(struct inode *inode, struct file *filp)
  */
 ssize_t pcd_read(struct file *filp, char __user *buffer, size_t size, loff_t *f_pos)
 {
-    pcDevice_private_data_t *local_pcdev_data = (pcDevice_private_data_t*)filp->private_data;
+    pcDevice_private_data_t *local_pcdev_data = (pcDevice_private_data_t *)filp->private_data;
     size_t dev_size = local_pcdev_data->size;
 
     // Check if offset is beyond the end of the device buffer
-    if (*f_pos >= dev_size) return 0;
+    if (*f_pos >= dev_size)
+        return 0;
 
     pr_info("[%s] - Current file position = %lld\n", __func__, *f_pos);
-    
-    
+
     if (size + *f_pos > dev_size) // Check if the size is bigger than the device buffer
     {
         size = dev_size - *f_pos;
     }
 
-    if(copy_to_user(buffer, local_pcdev_data->buffer+(*f_pos), size))
+    /* Get GPIO value */
+    local_pcdev_data->buffer[0] = gpio_get_value(GPIO_START_PIN + local_pcdev_data->id) + '0';
+    local_pcdev_data->buffer[1] = '\n';
+
+    if (copy_to_user(buffer, local_pcdev_data->buffer + (*f_pos), size))
     {
         pr_err("Failed to copy data to user\n");
         return -EFAULT;
@@ -175,13 +222,14 @@ ssize_t pcd_read(struct file *filp, char __user *buffer, size_t size, loff_t *f_
  */
 ssize_t pcd_write(struct file *filp, const char __user *buffer, size_t size, loff_t *f_pos)
 {
-    pcDevice_private_data_t *local_pcdev_data = (pcDevice_private_data_t*)filp->private_data;
+    pcDevice_private_data_t *local_pcdev_data = (pcDevice_private_data_t *)filp->private_data;
     size_t dev_size = local_pcdev_data->size;
 
     pr_info("[%s] - Current file position = %lld\n", __func__, *f_pos);
 
     // Check if offset is beyond the end of the device buffer
-    if (*f_pos >= dev_size) return -ENOSPC; // No space left on device
+    if (*f_pos >= dev_size)
+        return -ENOSPC; // No space left on device
 
     if (size + *f_pos > dev_size) // Check if the size is bigger than the device buffer
     {
@@ -189,28 +237,30 @@ ssize_t pcd_write(struct file *filp, const char __user *buffer, size_t size, lof
     }
 
     // Check if the file is opened with O_APPEND flag
-    if (filp->f_flags & O_APPEND) {
+    if (filp->f_flags & O_APPEND)
+    {
         *f_pos = local_pcdev_data->g_offset; // Set offset to the end of the device buffer
     }
-    else    // clear the device buffer (important for rewriting)
+    else // clear the device buffer (important for rewriting)
     {
         memset(local_pcdev_data->buffer, 0, dev_size); // Clear the device buffer
     }
 
     /* ------------------------ DEVICE SPECIFIC ------------------------ */
-    if( copy_from_user(local_pcdev_data->buffer+(*f_pos), buffer, 1) ) goto Copy_Error;
+    if (copy_from_user(local_pcdev_data->buffer + (*f_pos), buffer, 1))
+        goto Copy_Error;
 
-    switch(local_pcdev_data->buffer[0])
+    switch (local_pcdev_data->buffer[0])
     {
-        case '0':
-            gpio_set_value(GPIO_START_PIN + local_pcdev_data->id, 0);
-            break;
-        case '1':
-            gpio_set_value(GPIO_START_PIN + local_pcdev_data->id, 1);
-            break;
-        default:
-            pr_err("Invalid data\n");
-            return -EINVAL;
+    case '0':
+        gpio_set_value(GPIO_START_PIN + local_pcdev_data->id, 0);
+        break;
+    case '1':
+        gpio_set_value(GPIO_START_PIN + local_pcdev_data->id, 1);
+        break;
+    default:
+        pr_err("Invalid data\n");
+        return -EINVAL;
     }
     /* ----------------------------------------------------------------- */
     *f_pos += size;                      // Update the offset
@@ -220,9 +270,9 @@ ssize_t pcd_write(struct file *filp, const char __user *buffer, size_t size, lof
 
     return size; // Return the number of bytes written to the file
 
-    Copy_Error:
-        pr_err("Failed to copy data from user\n");
-        return -EFAULT;
+Copy_Error:
+    pr_err("Failed to copy data from user\n");
+    return -EFAULT;
 }
 
 /**
@@ -234,9 +284,9 @@ ssize_t pcd_write(struct file *filp, const char __user *buffer, size_t size, lof
  */
 int pcd_release(struct inode *inode, struct file *flip)
 {
-	pr_info("[%s] - Device file closed\n", __func__);
+    pr_info("[%s] - Device file closed\n", __func__);
 
-	return 0;
+    return 0;
 }
 
 /***********************************************************************************************/
@@ -260,15 +310,15 @@ static int __init GPIO_init(void)
 
     /* 1 - device number - base number - number of devices - name */
     r_err = alloc_chrdev_region(&pcdrv_data.dev_num, 0, NO_OF_DIOS_USED, "enigma_dios");
-    if(r_err < 0)
+    if (r_err < 0)
     {
         pr_err("Failed allocating device number\n");
         goto failure_out;
     }
 
     /* 2 - Create a class for the driver under /sys/class */
-    pcdrv_data.class_pcd = class_create("enigma_dio_class");
-    if(IS_ERR(pcdrv_data.class_pcd))
+    pcdrv_data.class_pcd = class_create(THIS_MODULE, "enigma_dio_class");
+    if (IS_ERR(pcdrv_data.class_pcd))
     {
         pr_err("Failed creating class\n");
         r_err = PTR_ERR(pcdrv_data.class_pcd);
@@ -276,7 +326,7 @@ static int __init GPIO_init(void)
     }
 
     /* 3 - Initialize and add the cdev structure with the file operations for all devices */
-    for(i = 0; i < NO_OF_DIOS_USED; i++)
+    for (i = 0; i < NO_OF_DIOS_USED; i++)
     {
         pr_info("Device [%s] number %d:%d\n", pcdrv_data.pcdev_data[i].name, MAJOR(pcdrv_data.dev_num + i), MINOR(pcdrv_data.dev_num + i));
 
@@ -287,7 +337,7 @@ static int __init GPIO_init(void)
         /* Add the device to the system
          * cdev structure - device number - number of devices */
         r_err = cdev_add(&pcdrv_data.pcdev_data[i].cDev, pcdrv_data.dev_num + i, 1);
-        if(r_err < 0)
+        if (r_err < 0)
         {
             pr_err("Failed adding Device[%d] cdev\n", pcdrv_data.dev_num + i);
             goto del_cdev;
@@ -296,7 +346,7 @@ static int __init GPIO_init(void)
         /* 4 - Add the device and populate the sysfs with device info.
          * class - parent - device number - driver data - device name */
         pcdrv_data.device_pcd = device_create(pcdrv_data.class_pcd, NULL, pcdrv_data.dev_num + i, NULL, pcdrv_data.pcdev_data[i].name);
-        if(IS_ERR(pcdrv_data.device_pcd))
+        if (IS_ERR(pcdrv_data.device_pcd))
         {
             pr_err("Failed creating device[%d]\n", pcdrv_data.dev_num + i);
             r_err = PTR_ERR(pcdrv_data.device_pcd);
@@ -304,7 +354,7 @@ static int __init GPIO_init(void)
         }
 
         /* 5 - GPIO Request (initialization) */
-        if(gpio_request(GPIO_START_PIN + i, "enigma_dio") < 0)
+        if (gpio_request(GPIO_START_PIN + i, "enigma_dio") < 0)
         {
             pr_err("Failed requesting GPIO[%d]\n", GPIO_START_PIN + i);
             r_err = -1;
@@ -312,34 +362,48 @@ static int __init GPIO_init(void)
         }
 
         /* 6 - GPIO Direction (input/output) */
-        if(gpio_direction_output(GPIO_START_PIN + i, 0) < 0)
+        if (pcdrv_data.pcdev_data[i].perms == RDONLY)
         {
-            pr_err("Failed setting GPIO[%d] direction\n", GPIO_START_PIN + i);
-            r_err = -1;
-            goto gpio_free;
+            if (gpio_direction_input(GPIO_START_PIN + pcdrv_data.pcdev_data[i].id) < 0)
+            {
+                pr_err("Failed setting GPIO[%d] direction\n", GPIO_START_PIN + i);
+                r_err = -1;
+                goto gpio_free;
+            }
+        }
+        else
+        {
+            if (gpio_direction_output(GPIO_START_PIN + pcdrv_data.pcdev_data[i].id, 0) < 0)
+            {
+                pr_err("Failed setting GPIO[%d] direction\n", GPIO_START_PIN + i);
+                r_err = -1;
+                goto gpio_free;
+            }
         }
     }
 
     pr_info("Module insertion was successful\n");
     return r_err;
 
-    /* ---------- Error handling ---------- */
-    gpio_free:
-        j = i;
-        for( ; j >= 0 ; j--){
-            gpio_free(GPIO_START_PIN + j);
-        }
-    del_cdev:
-        for( ; i >= 0 ; i--){
-            device_destroy(pcdrv_data.class_pcd,pcdrv_data.dev_num+i);
-            cdev_del(&pcdrv_data.pcdev_data[i].cDev);
-	    }
-        class_destroy(pcdrv_data.class_pcd);
-    unreg_chrdev:
-        unregister_chrdev_region(pcdrv_data.dev_num, NO_OF_DIOS_USED);
-    failure_out:
-        pr_info("Module insertion failed\n");
-	    return r_err;
+/* ---------- Error handling ---------- */
+gpio_free:
+    j = i;
+    for (; j >= 0; j--)
+    {
+        gpio_free(GPIO_START_PIN + j);
+    }
+del_cdev:
+    for (; i >= 0; i--)
+    {
+        device_destroy(pcdrv_data.class_pcd, pcdrv_data.dev_num + i);
+        cdev_del(&pcdrv_data.pcdev_data[i].cDev);
+    }
+    class_destroy(pcdrv_data.class_pcd);
+unreg_chrdev:
+    unregister_chrdev_region(pcdrv_data.dev_num, NO_OF_DIOS_USED);
+failure_out:
+    pr_info("Module insertion failed\n");
+    return r_err;
 }
 
 // This is the exit function that is called when the module is removed
@@ -355,7 +419,7 @@ static void __exit GPIO_exit(void)
      */
     int i;
 
-    for(i = 0; i < NO_OF_DIOS_USED; i++)
+    for (i = 0; i < NO_OF_DIOS_USED; i++)
     {
         gpio_set_value(GPIO_START_PIN + i, 0);
         gpio_free(GPIO_START_PIN + i);
@@ -379,4 +443,4 @@ module_exit(GPIO_exit);
 // This is the module information
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Enigma");
-MODULE_DESCRIPTION("My GPIO Driver");
+MODULE_DESCRIPTION("My GPIO Character Driver");
